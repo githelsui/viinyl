@@ -83,6 +83,16 @@
     .NavbarItems {
       position: relative;
     }
+
+    .navbar-logo {
+      justify-content: center;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 2rem;
+      display: flex;
+      margin-bottom: 50px;
+      align-items: center;
+    }
   
     .nav-menu {
       display: flex;
@@ -159,4 +169,5 @@
       width: 100%;
       height: 120px;
     }
+
   }
