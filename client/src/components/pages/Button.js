@@ -5,7 +5,7 @@ const STYLES = ['btn--primary', 'btn--outline ']
 
 const SIZES = ['btn--medium', 'btn--large', 'btn--mobile', 'btn--wide']
 
-const COLOR = ['primary']
+const COLORS = ['primary']
 
 export const Button = ({
     children, 
@@ -16,12 +16,10 @@ export const Button = ({
     buttonColor
 }) => {
     const checkButtonStyle = STYLES.includes(buttonStyle) ? buttonStyle : STYLES[0]
-    const checkButtonSize = STYLES.includes(buttonSize) ? buttonSize : STYLES[0]
-    const checkButtonColor = STYLES.includes(buttonColor) ? buttonColor : STYLES[0]
+    const checkButtonSize = STYLES.includes(buttonSize) ? buttonSize : SIZES[0]
+    const checkButtonColor = STYLES.includes(buttonColor) ? buttonColor : COLORS[0]
 
     return (
-        // <button></button>
-        // { btn ${checkButtonStyle} ${checkButtonSize ${checkButtonColor} }
-        <button className={``} onClick={onClick} type={type}>{children}</button>
+        <button className={`btn ${checkButtonStyle} ${checkButtonSize} ${checkButtonColor}`} onClick={onClick} type={type}>{children}</button>
     )
 }
