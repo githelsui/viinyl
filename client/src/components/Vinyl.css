@@ -1,19 +1,15 @@
 .card {
-    color: rgb(202, 143, 143);
-    flex-basis: 50%;
-    /* width: 20%; */
-    padding:0px ;
-    /* background-color: #000; */
+    /* margin: 100px; */
 }
 
 .record {
     background-color: rgb(20, 20, 20);
-    margin-top: 5px;
     width: 16rem;
     height: 16rem;
     margin-left: 70px;
     border-radius: 50%;
     z-index: 0;
+    transition: all 0.3s ease-in;
 }
 
 .card--cover {
@@ -25,6 +21,8 @@
 
 .card-content {
     color: #000;
+    width: 50%;
+    padding: 5px 0px 5px 0px;
 }
 
 .card:hover .record {
@@ -33,9 +31,11 @@
 }
 
 .card:hover .album-name{
-    background-color: yellow;
+    background-color: #FFDB58;
+    transition: all 0.3s ease-in;
 }
 
 .card:hover .artist{
-    background-color: yellow;
+    background-color: #FFDB58;
+    transition: all 0.3s ease-in;
 }

@@ -5,16 +5,14 @@ import { Card, CardMedia, CardContent, CardActions, Typography, IconButton} from
 
 const Vinyl = ({item}) => {
     return (
-        <Link to='/' className="container">
-            <div className="card">
+            <Link to='/' className="card">
                 <img src={item.image} className="card--cover"/>
-                <div className="record"/> <br></br>
+                <div className="record"/> 
                 <div className="card-content">
                     <div className="album-name">{item.album}</div>
                     <div className="artist">{item.artist}</div>
                 </div>
-            </div>
-        </Link>
+            </Link>
     )
 }
 

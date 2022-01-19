@@ -21,9 +21,9 @@ const vinyls = [
 function Vinyls() {
     return (
         <div className='vinyl-grid'>
-            <Grid container justify='center' spacing={20}>
+            <Grid container justify='center' spacing={10}>
                 {vinyls.map((vinyl) => (
-                    <Grid item key={vinyl.id} xs={12} sm={6} md={4} lg={3}>
+                    <Grid item key={vinyl.id}>
                         <Vinyl item={vinyl}/>
                     </Grid>
                 ))}
