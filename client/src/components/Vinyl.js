@@ -1,13 +1,20 @@
 import React from "react";
+import './Vinyl.css'
+import { Link } from 'react-router-dom'
 import { Card, CardMedia, CardContent, CardActions, Typography, IconButton} from '@material-ui/core';
-import { mergeClasses } from "@material-ui/styles";
 
 const Vinyl = ({item}) => {
     return (
-        <Card className='vinyl'>
-            <CardMedia className='vinyl-image' images={item.image} title={item.name}/>
-            <CardContent/>
-        </Card>
+        <Link to='/' className="container">
+            <div className="card">
+                <img src={item.image} className="card--cover"/>
+                <div className="record"/> <br></br>
+                <div className="card-content">
+                    <div className="album-name">{item.album}</div>
+                    <div className="artist">{item.artist}</div>
+                </div>
+            </div>
+        </Link>
     )
 }
 
