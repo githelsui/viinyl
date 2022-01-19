@@ -24,7 +24,7 @@ function Navbar() {
   return (
       <div className='navbar'>
       <div className='navbar-container container'>
-            <Link to='/' className='navbar-logo'>
+            <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
                 <FaRecordVinyl className='navbar-icon'/>
                 <div className='nav-text'>viinyl</div>
             </Link>
@@ -36,27 +36,27 @@ function Navbar() {
 
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
                 <li className='nav-item'>
-                  <Link to='/home' className='nav-links'>
+                  <Link to='/home' className='nav-links' onClick={closeMobileMenu}>
                     <div className='nav-text'>Home</div>
                   </Link>
                 </li>
                 <li className='nav-item'>
-                  <Link to='/explore' className='nav-links'>
+                  <Link to='/explore' className='nav-links' onClick={closeMobileMenu}>
                     <div className='nav-text'>Explore</div>
                   </Link>
                 </li>
                 <li className='nav-item'>
-                  <Link to='/profile' className='nav-links'>
+                  <Link to='/profile' className='nav-links' onClick={closeMobileMenu}>
                     <div className='nav-text'>Profile</div>
                   </Link>
                 </li>
                 <li className='nav-btn'>
                   {button ? (
-                      <Link to='/signup' className='btn-link'>
+                      <Link to='/signup' className='btn-link' onClick={closeMobileMenu}>
                         <Button buttonStyle='btn--outline'>Sign Up</Button>
                       </Link>
                   ) : (
-                      <Link to='/signup' className='btn-link'>
+                      <Link to='/signup' className='btn-link' onClick={closeMobileMenu}>
                         <Button buttonStyle='btn--outline'
                         buttonSize='btn--mobile'>
                           Sign Up
