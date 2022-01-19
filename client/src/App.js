@@ -1,13 +1,13 @@
 import './App.css';
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Vinyls from './components/Vinyls';
+import Profile from './pages/Profile';
 
 function App() {
   return (
     <Router>
       <Navbar/>
-      <Vinyls/>
+      <Profile/>
         <Routes>
           <Route path='/' />
         </Routes>
