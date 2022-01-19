@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { Link } from 'react-router-dom'
 import { FaRecordVinyl, FaTimes, FaBars } from 'react-icons/fa'
 import { Button } from './Button'
+import './Navbar.css'
 
 function Navbar() {
   const [click, setClick] = useState(false)
@@ -25,7 +26,7 @@ function Navbar() {
       <div className='navbar-container container'>
             <Link to='/' className='navbar-logo'>
                 <FaRecordVinyl className='navbar-icon'/>
-                Viinyl
+                <div className='nav-text'>viinyl</div>
             </Link>
 
             {/* mobile menu */}
@@ -36,17 +37,17 @@ function Navbar() {
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
                 <li className='nav-item'>
                   <Link to='/home' className='nav-links'>
-                    Home
+                    <div className='nav-text'>Home</div>
                   </Link>
                 </li>
                 <li className='nav-item'>
                   <Link to='/explore' className='nav-links'>
-                    Explore
+                    <div className='nav-text'>Explore</div>
                   </Link>
                 </li>
                 <li className='nav-item'>
                   <Link to='/profile' className='nav-links'>
-                    Profile
+                    <div className='nav-text'>Profile</div>
                   </Link>
                 </li>
                 <li className='nav-btn'>
