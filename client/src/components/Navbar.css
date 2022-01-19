@@ -4,7 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.2rem;
+    font-size: 0.95rem;
     position: sticky;
     top: 0;
     z-index: 999;
@@ -33,7 +33,7 @@
     justify-self: start;
     cursor: pointer;
     text-decoration: none;
-    font-size: 2rem;
+    font-size: 1rem;
     display: flex;
     align-items: center;
   }
@@ -60,7 +60,7 @@
     display: flex;
     align-items: center;
     text-decoration: none;
-    padding: 0.5rem 1rem;
+    padding: 2rem;
     height: 100%;
   }
 
@@ -86,11 +86,11 @@
 
     .navbar-logo {
       justify-content: center;
+      padding: 10px;
       cursor: pointer;
       text-decoration: none;
-      font-size: 2rem;
+      font-size: 1rem;
       display: flex;
-      margin-bottom: 50px;
       align-items: center;
     }
   
