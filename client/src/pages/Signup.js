@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Signup.css'
 import TypeAnimation from 'react-type-animation'
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
+import Axios from 'axios'
 
 function Signup() {
 
@@ -14,21 +15,32 @@ function Signup() {
     const handleLogin = async (response) => {
         console.log(response);
         console.log(response.profileObj);
-        const result = await fetch('/api/google-login', {
-            method: 'POST',
-            body: JSON.stringify({
-                token: response.tokenId,
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials' : true,
-            },
+        const user = response.profileObj;
+        //using Axios to make sql requests
+        setLoginData(user);
+        Axios.post('http://localhost:3001/api/insert', {
+            googleId: response.googleId,
+            email: user.email,
+            fullName: user.name,
+        }).then(() => {
+            alert("successful account login");
         });
 
-        const data = await result.json();
-        setLoginData(data);
-        localStorage.setItem('loginData', JSON.stringify(data))
+        // // using google api
+        // const result = await fetch('/api/google-login', {
+        //     method: 'POST',
+        //     body: JSON.stringify({
+        //         token: response.tokenId,
+        //     }),
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Access-Control-Allow-Origin': '*',
+        //         'Access-Control-Allow-Credentials' : true,
+        //     },
+        // });
+
+        // const data = await result.json();
+        // localStorage.setItem('loginData', JSON.stringify(data))
     };
     
     const handleFailure = (response) => {
