@@ -3,6 +3,8 @@ import './Signup.css'
 import TypeAnimation from 'react-type-animation'
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import Axios from 'axios'
+import { User } from '../models/user'
+import { db } from '../util/firebase';
 
 function Signup() {
 
@@ -13,9 +15,11 @@ function Signup() {
     );
 
     const handleLogin = async (response) => {
+        //login with google
         console.log(response);
         console.log(response.profileObj);
         const user = response.profileObj;
+        //todo: 
         //using Axios to make sql requests
         setLoginData(user);
         Axios.post('http://localhost:3001/api/insert', {
@@ -25,22 +29,7 @@ function Signup() {
         }).then(() => {
             alert("successful account login");
         });
-
-        // // using google api
-        // const result = await fetch('/api/google-login', {
-        //     method: 'POST',
-        //     body: JSON.stringify({
-        //         token: response.tokenId,
-        //     }),
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Access-Control-Allow-Origin': '*',
-        //         'Access-Control-Allow-Credentials' : true,
-        //     },
-        // });
-
-        // const data = await result.json();
-        // localStorage.setItem('loginData', JSON.stringify(data))
+        //store new user in users db
     };
     
     const handleFailure = (response) => {
@@ -64,22 +53,21 @@ function Signup() {
             loginData ? (
                 <div>
                     <div className='signup-info'>/Logged in as {loginData.name}</div> 
-                    {/* <GoogleLogout/> */}
                     <button onClick={handleLogout}>Logout</button>
                 </div>
             ) : (
                 <div>
-                    <div className='signup-info'>/share your collection</div> 
-                    <div className='signup-info'>/explore new records</div> 
-                    <div className='signup-info'>/add to your wishlist</div> 
-                    <div className='signup-info'>/connect with friends</div> 
-                    <GoogleLogin 
+                    <div className='signup-info'>&gt; share your collection</div> 
+                    <div className='signup-info'>&gt; explore new records</div> 
+                    <div className='signup-info'>&gt; add to your wishlist</div> 
+                    <div className='signup-info'>&gt; connect with friends</div> 
+                    <div className='signup-btn'><GoogleLogin 
                         clientId={process.env.REACT_APP_APP_ID}
                         buttonText="Log in with Google"
                         onSuccess={handleLogin}
                         onFailure={handleLogin}
                         cookiePolicy={'single_host_origin'}
-                    />
+                    /></div>
                 </div>
             )
         }

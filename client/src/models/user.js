@@ -1,23 +1,11 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../database");
+class User {
+  constructor(uid, name, collection_count, wishlist_count, friend_count) {
+    this.uid = uid;
+    this.name = name;
+    this.collection_count = collection_count;
+    this.wishlist_count = wishlist_count;
+    this.friend_count = friend_count;
+  }
+}
 
-const User = sequelize.define("User", {
-  googleId: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  fullName: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-});
-
-module.exports = User;
+export default User;
