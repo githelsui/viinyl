@@ -8,7 +8,7 @@ import barsImage from '../assets/bars.png'
 import xImage from '../assets/x.png'
 import circleXImage from '../assets/circlex.png'
 
-function Navbar() {
+function LoggedInNavbar() {
   const [click, setClick] = useState(false)
   const [button, setButton] = useState(true)
   const [search, setSearch] = useState(false)
@@ -45,25 +45,30 @@ function Navbar() {
             <Searchbar className='remove-search'/>
 
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-                {/* <li className='nav-item'>
+                <li className='nav-item'>
                   <Link to='/home' className='nav-links' onClick={closeMobileMenu}>
                     <div className='nav-text'>feed</div>
                   </Link>
-                </li> */}
+                </li>
                 <li className='nav-item'>
                   <Link to='/explore' className='nav-links' onClick={closeMobileMenu}>
                     <div className='nav-text'>explore</div>
                   </Link>
                 </li>
+                <li className='nav-item'>
+                  <Link to='/profile' className='nav-links' id='profile-nav-link' onClick={closeMobileMenu}>
+                    <div className='nav-text'>profile</div>
+                  </Link>
+                </li>
                 <li className='nav-btn'>
                   {button ? (
                       <Link to='/signup' className='btn-link' onClick={closeMobileMenu}>
-                        <Button buttonStyle='btn--outline'>sign up</Button>
+                        <Button buttonStyle='btn--outline'>Logout</Button>
                       </Link>
                   ) : (
                       <Link to='/signup' className='btn-link' onClick={closeMobileMenu}>
                         <Button buttonStyle='btn--outline' buttonSize='btn--mobile'>
-                          sign up
+                          Logout
                         </Button>
                       </Link>
                   )}
@@ -75,4 +80,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default LoggedInNavbar;

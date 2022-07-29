@@ -1,6 +1,7 @@
 import './App.css';
 import React from "react";
 import Navbar from './components/Navbar';
+import LoggedInNavbar from './components/LoggedInNavbar';
 import { useState, useEffect } from 'react';
 import { BrowserRouter, BrowserRouter as Router, Switch, Route, Routes } from 'react-router-dom';
 import Profile from './pages/Profile';
@@ -19,11 +20,10 @@ function App() {
     }
   }, []);
 
-  //debugging
   if(isUserSignedIn){
     return (
       <Router>
-        <Navbar/>
+        <LoggedInNavbar/>
           <Routes>
             <Route path='/profile' element={<Profile/>}/>
             <Route path='/signup' element={<Signup/>}/>

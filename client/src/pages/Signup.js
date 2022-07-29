@@ -6,8 +6,6 @@ import Axios from 'axios'
 import { User } from '../models/user'
 import { db } from '../util/firebase';
 import {onValue, ref, set } from "firebase/database";
-import { uid } from 'uid';
-// import firebase from 'firebase/app';
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
@@ -57,6 +55,7 @@ function Signup() {
         // save state of logged in user locally per session
         setLoginData(user);
         localStorage.setItem('user', JSON.stringify(user));
+        window.location.reload(false);
     };
     
     const handleFailure = (response) => {
@@ -67,6 +66,7 @@ function Signup() {
         setLoginData(null);
         setUserExists(null);
         localStorage.clear();
+        window.location.reload(false);
     };
 
   return (
