@@ -5,6 +5,7 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import Axios from 'axios'
 import { User } from '../models/user'
 import { db } from '../util/firebase';
+// import { persist }
 
 function Signup() {
 
@@ -19,7 +20,7 @@ function Signup() {
         console.log(response);
         console.log(response.profileObj);
         const user = response.profileObj;
-        //todo: 
+        //todo: Axios may not be used
         //using Axios to make sql requests
         setLoginData(user);
         Axios.post('http://localhost:3001/api/insert', {
