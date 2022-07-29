@@ -1,36 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Signup.css'
 import TypeAnimation from 'react-type-animation'
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import Axios from 'axios'
 import { User } from '../models/user'
 import { db } from '../util/firebase';
-// import { persist }
+import {onValue, ref, set } from "firebase/database";
+import { uid } from 'uid';
+// import firebase from 'firebase/app';
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 function Signup() {
+    // stores user only within this page
+    const [loginData, setLoginData] = useState(); 
+    const [userExists, setUserExists] = useState();
 
-    const [loginData, setLoginData] = useState(
-        localStorage.getItem('loginData')
-        ? JSON.parse(localStorage.getItem('loginData'))
-        : null    
-    );
+    // check if user is signed in locally
+    useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+    // check if user is signed in as a session
+    if (loggedInUser) {
+        setLoginData(JSON.parse(loggedInUser));
+    }
+  }, []);
 
+    const checkIfUserExists = (uuid) => {
+        onValue(ref(db, 'user/' + `/${uuid}`), snapshot => {
+            const data = snapshot.val();
+            if(data){
+                setUserExists(data);
+            } 
+        })
+    };
+
+    // login via google + store in db
     const handleLogin = async (response) => {
         //login with google
-        console.log(response);
+        // console.log("response: " + response);
         console.log(response.profileObj);
         const user = response.profileObj;
-        //todo: Axios may not be used
-        //using Axios to make sql requests
+        const uuid = response.googleId;
+        //store new user in users firebase db if it doesnt already exist in db
+        checkIfUserExists(uuid); 
+        if(!userExists){
+            set(ref(db, 'user/' + `/${uuid}`), {
+                id: uuid,
+                email: user.email,
+                fullName: user.name,
+                collection_count: 0,
+                wishlist_count: 0,
+                friend_count: 0,
+            });
+        }
+        // save state of logged in user locally per session
         setLoginData(user);
-        Axios.post('http://localhost:3001/api/insert', {
-            googleId: response.googleId,
-            email: user.email,
-            fullName: user.name,
-        }).then(() => {
-            alert("successful account login");
-        });
-        //store new user in users db
+        localStorage.setItem('user', JSON.stringify(user));
     };
     
     const handleFailure = (response) => {
@@ -38,8 +64,9 @@ function Signup() {
     };
     
     const handleLogout = () => {
-        localStorage.removeItem('loginData');
-        setLoginData(null)
+        setLoginData(null);
+        setUserExists(null);
+        localStorage.clear();
     };
 
   return (
@@ -53,7 +80,7 @@ function Signup() {
         {
             loginData ? (
                 <div>
-                    <div className='signup-info'>/Logged in as {loginData.name}</div> 
+                    <div className='signup-info'>/Logged in as {loginData.email}</div> 
                     <button onClick={handleLogout}>Logout</button>
                 </div>
             ) : (
@@ -66,7 +93,7 @@ function Signup() {
                         clientId={process.env.REACT_APP_APP_ID}
                         buttonText="Log in with Google"
                         onSuccess={handleLogin}
-                        onFailure={handleLogin}
+                        onFailure={handleFailure}
                         cookiePolicy={'single_host_origin'}
                     /></div>
                 </div>
