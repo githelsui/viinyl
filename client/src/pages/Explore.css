@@ -1,0 +1,13 @@
+.explore-title {
+    font-size: 2rem;
+    width: 100%;
+    text-align: center;
+    display: table;
+    padding-bottom: 20px;
+}
+
+.subtitle{
+    color: #000;
+    padding: 3px;
+    align-items: flex-start;
+}

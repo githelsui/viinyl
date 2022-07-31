@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter, BrowserRouter as Router, Switch, Route, Routes } from 'react-router-dom';
 import Profile from './pages/Profile';
 import Signup from './pages/Signup';
+import Explore from './pages/Explore';
 import AlbumInfo from './pages/AlbumInfo';
 
 function App() {
@@ -25,8 +26,10 @@ function App() {
       <Router>
         <LoggedInNavbar/>
           <Routes>
+          <Route path='/explore' element={<Explore/>}/>
             <Route path='/profile' element={<Profile/>}/>
             <Route path='/signup' element={<Signup/>}/>
+            <Route path='/album' element={<AlbumInfo/>}/>
           </Routes>
       </Router>
     );
@@ -36,8 +39,9 @@ function App() {
         <Navbar/>
           <Routes>
             {/* <Route path='/profile' element={<Profile/>}/> */}
+            <Route path='/explore' element={<Explore/>}/>
             <Route path='/signup' element={<Signup/>}/>
-            {/* <Route path='/album' element={<AlbumInfo/>}/> */}
+            <Route path='/album' element={<AlbumInfo/>}/>
           </Routes>
       </Router>
     );

@@ -22,7 +22,7 @@ const vinyls = [
     { id: 2, album: 'Blonde', artist: 'Frank Ocean', image: 'https://upload.wikimedia.org/wikipedia/en/2/28/Channel_ORANGE.jpg'},
 ];
 
-function Vinyls() {
+function Vinyls({albums}) {
     return (
         <div className='vinyl-grid'>
             <Grid container justify='center' spacing={10}>

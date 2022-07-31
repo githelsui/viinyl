@@ -20,14 +20,6 @@ const AlbumInfo = ({item}) => {
     //should change temp to item after tables created
     const addToCollection = () => {
         const uuid = uid(); 
-        // const collectionRef = db.ref("collection");
-        // const albumRef = collectionRef.push();
-        // albumRef.set({
-        //     id: temp.id,
-        //     album: temp.album,
-        //     artist: temp.artist,
-        //     image: temp.image,
-        // });
         set(ref(db, 'collection/' + `/${uuid}`), {
             id: temp.id,
             album: temp.album,
