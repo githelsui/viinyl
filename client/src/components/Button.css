@@ -19,8 +19,7 @@
 
 .btn--disabled {
     background-color: #bbbbbb !important;
-    cursor: crosshair;
-    pointer-events: none;
+    cursor: pointer;
     color: #000;
     font-style: italic;
     border: 0.2px solid #000;

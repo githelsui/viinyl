@@ -6,7 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Card, CardMedia, CardContent, CardActions, Typography, IconButton} from '@material-ui/core';
 import { db } from '../util/firebase';
 import { uid } from 'uid';
-import {ref, set, onValue } from "firebase/database";
+import {ref, set, onValue, remove } from "firebase/database";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -30,7 +30,7 @@ const AlbumInfo = () => {
                 setCollectedStatus(true);
                 console.log(user.id)
             } 
-        })
+        });
     };
 
     const checkIfInWishlist = (user) => {
@@ -39,7 +39,7 @@ const AlbumInfo = () => {
             if(data){
                 setWishlistStatus(true);
             } 
-        })
+        });
     };
 
     useEffect(() => {
@@ -54,7 +54,6 @@ const AlbumInfo = () => {
        }, []);
 
     const addToCollection = () => {
-        const uuid = uid(); 
         set(ref(db, 'collection/' + `/${loginData.id}` + `/${fetched_album.id}`), {
             id: fetched_album.id,
             album: fetched_album.album,
@@ -69,7 +68,6 @@ const AlbumInfo = () => {
     };
 
     const addToWishlist = () => {
-        const uuid = uid(); 
         set(ref(db, 'wishlist/' + `/${loginData.id}` + `/${fetched_album.id}`), {
             id: fetched_album.id,
             album: fetched_album.album,
@@ -83,6 +81,40 @@ const AlbumInfo = () => {
         setWishlistStatus(true);
     };
 
+    const removeFromCollection = () => {
+        remove(ref(db, 'collection/' + `/${loginData.id}` + `/${fetched_album.id}`))
+        .then(() => {
+            setCollectedStatus(false);
+            toast('> Album removed from collection',{
+                autoClose: 1000,
+                hideProgressBar: true,
+            });
+        })
+        .catch((error) => {
+            toast('> Failed to remove album. Try again.',{
+                autoClose: 1000,
+                hideProgressBar: true,
+            });
+        });
+    };
+
+    const removeFromWishlist = () => {
+        remove(ref(db, 'wishlist/' + `/${loginData.id}` + `/${fetched_album.id}`))
+        .then(() => {
+            setWishlistStatus(false);
+            toast('> Album removed from wishlist',{
+                autoClose: 1000,
+                hideProgressBar: true,
+            });
+        })
+        .catch((error) => {
+            toast('> Failed to remove album. Try again.',{
+                autoClose: 1000,
+                hideProgressBar: true,
+            });
+        });
+    };
+
     return (
         <div className="info-wrapper">
             <div className="large-album-name">{fetched_album.album}</div>
@@ -93,7 +125,7 @@ const AlbumInfo = () => {
             </div>
             {collected ? 
                 (<div className="album-action-btn">
-                <Button onClick={addToCollection} buttonStyle='btn--disabled' buttonSize='btn--mobile'>&gt; remove from collection</Button>
+                <Button onClick={removeFromCollection} buttonStyle='btn--disabled' buttonSize='btn--mobile'>&gt; remove from collection</Button>
                 </div>) : 
                 (<div className="album-action-btn">
                 <Button onClick={addToCollection} buttonStyle='btn--outline' buttonSize='btn--mobile'>&gt; add to collection</Button>
@@ -101,7 +133,7 @@ const AlbumInfo = () => {
             }
             {wished ? 
                 (<div className="album-action-btn">
-                <Button onClick={addToWishlist} buttonStyle='btn--disabled' buttonSize='btn--mobile'>&gt; remove from wishlist</Button>
+                <Button onClick={removeFromWishlist} buttonStyle='btn--disabled' buttonSize='btn--mobile'>&gt; remove from wishlist</Button>
                 </div>) : 
                 (<div className="album-action-btn">
                 <Button onClick={addToWishlist} buttonStyle='btn--outline' buttonSize='btn--mobile'>&gt; add to wishlist</Button>
