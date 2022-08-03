@@ -9,7 +9,7 @@ import {ref, set } from "firebase/database";
 
 //pass item param in from Vinyl component after database structures are created
 //testing purposes:
-const temp = { id: 1, album: 'Channel Orange', artist: 'Frank Ocean', image: 'https://upload.wikimedia.org/wikipedia/en/2/28/Channel_ORANGE.jpg'};
+// const temp = { id: 1, album: 'Channel Orange', artist: 'Frank Ocean', image: 'https://upload.wikimedia.org/wikipedia/en/2/28/Channel_ORANGE.jpg'};
 
 
 const AlbumInfo = ({item}) => {
@@ -21,10 +21,10 @@ const AlbumInfo = ({item}) => {
     const addToCollection = () => {
         const uuid = uid(); 
         set(ref(db, 'collection/' + `/${uuid}`), {
-            id: temp.id,
-            album: temp.album,
-            artist: temp.artist,
-            image: temp.image,
+            id: {item}.id,
+            album: {item}.album,
+            artist: {item}.artist,
+            image: {item}.image,
         });
     };
 
@@ -34,12 +34,11 @@ const AlbumInfo = ({item}) => {
 
     return (
         <div className="info-wrapper">
-            <div className="large-album-name">{temp.album}</div>
-            <div className="large-artist-name">{temp.artist}</div>
+            <div className="large-album-name">{item.album}</div>
+            <div className="large-artist-name">{item.artist}</div>
     
             <div className="large-card">
-                <img src={temp.image} className="large-card--cover"/>
-                {/* <div className="large-record"/>  */}
+                <img src={item.image} className="large-card--cover"/>
             </div>
             <div className="album-action-btn">
             <Button onClick={addToCollection} buttonStyle='btn--outline' buttonSize='btn--mobile'>&gt; add to collection</Button>
