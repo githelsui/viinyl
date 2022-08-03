@@ -15,22 +15,30 @@ const item = { id: 1, album: 'Channel Orange', artist: 'Frank Ocean', image: 'ht
 const AlbumInfo = () => {
     const {state} = useLocation();
     const {fetched_album} = state;
-    const [collected, setCollectedStatus] = useState('');
-    const [wished, setWishlistStatus] = useState('');
+    const [collected, setCollectedStatus] = useState(false);
+    const [wished, setWishlistStatus] = useState(false);
 
     //should change temp to item after tables created
     const addToCollection = () => {
         const uuid = uid(); 
         set(ref(db, 'collection/' + `/${uuid}`), {
-            id: {item}.id,
-            album: {item}.album,
-            artist: {item}.artist,
-            image: {item}.image,
+            id: fetched_album.id,
+            album: fetched_album.album,
+            artist: fetched_album.artist,
+            image: fetched_album.image,
         });
+        setCollectedStatus(true);
     };
 
     const addToWishlist = () => {
-
+        const uuid = uid(); 
+        set(ref(db, 'wishlist/' + `/${uuid}`), {
+            id: fetched_album.id,
+            album: fetched_album.album,
+            artist: fetched_album.artist,
+            image: fetched_album.image,
+        });
+        setWishlistStatus(true);
     };
 
     return (
@@ -42,10 +50,10 @@ const AlbumInfo = () => {
                 <img src={fetched_album.image} className="large-card--cover"/>
             </div>
             <div className="album-action-btn">
-            <Button onClick={addToCollection} buttonStyle='btn--outline' buttonSize='btn--mobile'>&gt; add to collection</Button>
+            <Button onClick={addToCollection} buttonStyle='btn--disabled' buttonSize='btn--mobile'>&gt; add to collection</Button>
             </div>
             <div className="album-action-btn">
-            <Button buttonStyle='btn--outline' buttonSize='btn--mobile'>&gt; add to wishlist</Button>
+            <Button onClick={addToWishlist} buttonStyle='btn--outline' buttonSize='btn--mobile'>&gt; add to wishlist</Button>
             </div>
         </div>
     )

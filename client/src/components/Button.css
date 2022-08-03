@@ -17,9 +17,18 @@
     border: 0.2px solid #000;
 }
 
+.btn--disabled {
+    background-color: #bbbbbb !important;
+    cursor: crosshair;
+    pointer-events: none;
+    color: #000;
+    font-style: italic;
+    border: 0.2px solid #000;
+}
+
 .btn--outline {
     background-color: transparent;
-    color: #fff;
+    color: rgb(9, 9, 9);
     padding: 8px 20px;
     border: 1px solid #000;
     transition: all 0.3s ease-out;
@@ -63,3 +72,5 @@
     color: #000;
     border: 0.5px solid #000;
 }
+
+.enabled {}
