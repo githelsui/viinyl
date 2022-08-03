@@ -30,6 +30,10 @@
     transition: all 0.3s ease-in;
 }
 
+.album-name {
+    font-style: italic;
+}
+
 .card:hover .album-name{
     background-color: #FFDB58;
     transition: all 0.3s ease-in;

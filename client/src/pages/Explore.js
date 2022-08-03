@@ -1,29 +1,26 @@
 import React from "react";
 import './Explore.css'
 import Vinyls from '../components/Vinyls';
+import { Grid } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import Vinyl from '../components/Vinyl';
 import axios from 'axios';
 import { useState, useEffect, useRef} from 'react';
 import usePromise from "react-promise";
 
-const Explore = () => {
-    const recentReleases = useRef(null)
+/*
+ Table display for array for Explore releases
+*/
 
-    useEffect(() => {
-       fetchDiscogDB();
-       console.log(recentReleases)
-      }, []);
+const Explore = () => {
+
+    const [recentReleases, setRecentReleases] = useState([])
 
     const fetchDiscogDB = async () => {
         var Discogs = require('disconnect').Client;
         var dis = new Discogs({userToken: process.env.REACT_APP_DISCOGS_TOKEN});
         var db = dis.database();
         var currentYear = new Date().getFullYear();
-        // return await db.search({year: currentYear, country: 'US'})['results'];
-        // const releases =  await db.search({year: currentYear, country: 'US'}).then(result => result.data);
-        // var recent_releases = value['results'].slice(0, 10)
-        // setRecentReleases(value);
-        // console.log(recentReleases);
         var top_releases = []
         db.search({year: currentYear, country: 'US'}, function(err, data){
             var recent_releases = data['results'].slice(0, 12)
@@ -43,26 +40,13 @@ const Explore = () => {
                 }
                 top_releases.push(release_dict)
             }
-            recentReleases.current = top_releases
-            // console.log({recentReleases});
+            setRecentReleases(top_releases)
         });
-        // console.log(recentReleases)
     };
 
-    const vinyls = [
-        { id: 1, album: 'Channel Orange', artist: 'Frank Ocean', image: 'https://upload.wikimedia.org/wikipedia/en/2/28/Channel_ORANGE.jpg'}, 
-        { id: 2, album: 'Blonde', artist: 'Frank Ocean', image: 'https://upload.wikimedia.org/wikipedia/en/2/28/Channel_ORANGE.jpg'},
-        { id: 1, album: 'Channel Orange', artist: 'Frank Ocean', image: 'https://upload.wikimedia.org/wikipedia/en/2/28/Channel_ORANGE.jpg'}, 
-        { id: 2, album: 'Blonde', artist: 'Frank Ocean', image: 'https://upload.wikimedia.org/wikipedia/en/2/28/Channel_ORANGE.jpg'},
-        { id: 1, album: 'Channel Orange', artist: 'Frank Ocean', image: 'https://upload.wikimedia.org/wikipedia/en/2/28/Channel_ORANGE.jpg'}, 
-        { id: 2, album: 'Blonde', artist: 'Frank Ocean', image: 'https://upload.wikimedia.org/wikipedia/en/2/28/Channel_ORANGE.jpg'},
-        { id: 1, album: 'Channel Orange', artist: 'Frank Ocean', image: 'https://upload.wikimedia.org/wikipedia/en/2/28/Channel_ORANGE.jpg'}, 
-        { id: 2, album: 'Blonde', artist: 'Frank Ocean', image: 'https://upload.wikimedia.org/wikipedia/en/2/28/Channel_ORANGE.jpg'},
-        { id: 1, album: 'Channel Orange', artist: 'Frank Ocean', image: 'https://upload.wikimedia.org/wikipedia/en/2/28/Channel_ORANGE.jpg'}, 
-        { id: 2, album: 'Blonde', artist: 'Frank Ocean', image: 'https://upload.wikimedia.org/wikipedia/en/2/28/Channel_ORANGE.jpg'},
-        { id: 1, album: 'Channel Orange', artist: 'Frank Ocean', image: 'https://upload.wikimedia.org/wikipedia/en/2/28/Channel_ORANGE.jpg'}, 
-        { id: 2, album: 'Blonde', artist: 'Frank Ocean', image: 'https://upload.wikimedia.org/wikipedia/en/2/28/Channel_ORANGE.jpg'},
-    ];
+    useEffect(() => {
+        fetchDiscogDB();
+       }, []);
 
     return (
         <div className="profile-wrapper">
@@ -72,7 +56,15 @@ const Explore = () => {
                         <div className="subtitle">most recent releases</div>
                 </div>
             </div>
-            <Vinyls albums={vinyls}/>
+            <div className='vinyl-grid'>
+            <Grid container justify='center' spacing={10}>
+            {recentReleases.map(function(vinyl, i){
+                return <Grid item key={i}>
+                <Vinyl item={vinyl}/>
+            </Grid>
+            })}
+            </Grid>
+        </div>
         </div>
     )
 }
