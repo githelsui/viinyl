@@ -49,12 +49,21 @@ const AlbumInfo = () => {
             <div className="large-card">
                 <img src={fetched_album.image} className="large-card--cover"/>
             </div>
-            <div className="album-action-btn">
-            <Button onClick={addToCollection} buttonStyle='btn--disabled' buttonSize='btn--mobile'>&gt; add to collection</Button>
-            </div>
-            <div className="album-action-btn">
-            <Button onClick={addToWishlist} buttonStyle='btn--outline' buttonSize='btn--mobile'>&gt; add to wishlist</Button>
-            </div>
+            {collected ? 
+                (<div className="album-action-btn">
+                <Button onClick={addToCollection} buttonStyle='btn--disabled' buttonSize='btn--mobile'>&gt; remove from collection</Button>
+                </div>) : 
+                (<div className="album-action-btn">
+                <Button onClick={addToCollection} buttonStyle='btn--outline' buttonSize='btn--mobile'>&gt; add to collection</Button>
+                </div>)
+            }
+            {wished ? 
+                (<div className="album-action-btn">
+                <Button onClick={addToWishlist} buttonStyle='btn--disabled' buttonSize='btn--mobile'>&gt; remove from wishlist</Button>
+                </div>) : 
+                (<div className="album-action-btn">
+                <Button onClick={addToWishlist} buttonStyle='btn--outline' buttonSize='btn--mobile'>&gt; add to wishlist</Button>
+                </div>)}
         </div>
     )
 }
