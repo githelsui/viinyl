@@ -14,7 +14,7 @@ import usePromise from "react-promise";
 
 const Explore = () => {
 
-    const [recentReleases, setRecentReleases] = useState([])
+    const [recentReleases, setRecentReleases] = useState([{}])
 
     const fetchDiscogDB = async () => {
         var Discogs = require('disconnect').Client;
