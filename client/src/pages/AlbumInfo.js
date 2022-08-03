@@ -19,15 +19,21 @@ const AlbumInfo = () => {
     const {fetched_album} = state;
     const [collected, setCollectedStatus] = useState(false);
     const [wished, setWishlistStatus] = useState(false);
+    const [loginData, setLoginData] = useState(); 
 
     useEffect(() => {
         toast.configure();
+        const loggedInUser = localStorage.getItem("user");
+        if (loggedInUser) {
+            setLoginData(JSON.parse(loggedInUser));
+            console.log(loggedInUser);
+        }
        }, []);
 
     //should change temp to item after tables created
     const addToCollection = () => {
         const uuid = uid(); 
-        set(ref(db, 'collection/' + `/${uuid}`), {
+        set(ref(db, 'collection/' + `/${loginData.id}` + `/${uuid}`), {
             id: fetched_album.id,
             album: fetched_album.album,
             artist: fetched_album.artist,
@@ -42,7 +48,7 @@ const AlbumInfo = () => {
 
     const addToWishlist = () => {
         const uuid = uid(); 
-        set(ref(db, 'wishlist/' + `/${uuid}`), {
+        set(ref(db, 'wishlist/' + `/${loginData.id}` + `/${uuid}`), {
             id: fetched_album.id,
             album: fetched_album.album,
             artist: fetched_album.artist,

@@ -36,26 +36,32 @@ function Signup() {
     // login via google + store in db
     const handleLogin = async (response) => {
         //login with google
-        // console.log("response: " + response);
-        console.log(response.profileObj);
+        console.log("does this run")
         const user = response.profileObj;
         const uuid = response.googleId;
         //store new user in users firebase db if it doesnt already exist in db
         checkIfUserExists(uuid); 
+        const user_dict = {
+            id: uuid,
+            email: user.email,
+            fullName: user.name,
+            collection_count: 0,
+            wishlist_count: 0,
+            friend_count: 0,
+        }
         if(!userExists){
             set(ref(db, 'user/' + `/${uuid}`), {
-                id: uuid,
-                email: user.email,
-                fullName: user.name,
-                collection_count: 0,
-                wishlist_count: 0,
-                friend_count: 0,
+                id: user_dict.id,
+                email: user_dict.email,
+                fullName: user_dict.fullName,
+                collection_count: user_dict.collection_count,
+                wishlist_count: user_dict.wishlist_count,
+                friend_count: user_dict.friend_count,
             });
         }
         // save state of logged in user locally per session
-        setLoginData(user);
-        localStorage.setItem('user', JSON.stringify(user));
-        window.location.reload(false);
+        setLoginData(user_dict);
+        localStorage.setItem('user', JSON.stringify(user_dict));
     };
     
     const handleFailure = (response) => {
@@ -67,6 +73,7 @@ function Signup() {
         setUserExists(null);
         localStorage.clear();
         window.location.reload(false);
+        Cache.delete();
     };
 
   return (
