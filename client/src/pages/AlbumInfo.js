@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import './AlbumInfo.css';
 import { Button } from '../components/Button';
@@ -7,6 +7,8 @@ import { Card, CardMedia, CardContent, CardActions, Typography, IconButton} from
 import { db } from '../util/firebase';
 import { uid } from 'uid';
 import {ref, set } from "firebase/database";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 //pass item param in from Vinyl component after database structures are created
 //testing purposes:
@@ -18,6 +20,10 @@ const AlbumInfo = () => {
     const [collected, setCollectedStatus] = useState(false);
     const [wished, setWishlistStatus] = useState(false);
 
+    useEffect(() => {
+        toast.configure();
+       }, []);
+
     //should change temp to item after tables created
     const addToCollection = () => {
         const uuid = uid(); 
@@ -26,6 +32,10 @@ const AlbumInfo = () => {
             album: fetched_album.album,
             artist: fetched_album.artist,
             image: fetched_album.image,
+        });
+        toast('> Album added to collection',{
+            autoClose: 1000,
+            hideProgressBar: true,
         });
         setCollectedStatus(true);
     };
@@ -37,6 +47,10 @@ const AlbumInfo = () => {
             album: fetched_album.album,
             artist: fetched_album.artist,
             image: fetched_album.image,
+        });
+        toast('> Album added to wishlist',{
+            autoClose: 1000,
+            hideProgressBar: true,
         });
         setWishlistStatus(true);
     };
