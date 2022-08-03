@@ -6,7 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Card, CardMedia, CardContent, CardActions, Typography, IconButton} from '@material-ui/core';
 import { db } from '../util/firebase';
 import { uid } from 'uid';
-import {ref, set } from "firebase/database";
+import {ref, set, onValue } from "firebase/database";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,20 +20,42 @@ const AlbumInfo = () => {
     const [collected, setCollectedStatus] = useState(false);
     const [wished, setWishlistStatus] = useState(false);
     const [loginData, setLoginData] = useState(); 
+    const [userID, setUserID] = useState();
+
+    const checkIfInCollection = (user) => {
+        console.log(user.id)
+        onValue(ref(db, 'collection/' + `/${user.id}` + `/${fetched_album.id}`), snapshot => {
+            const data = snapshot.val();
+            if(data){
+                setCollectedStatus(true);
+                console.log(user.id)
+            } 
+        })
+    };
+
+    const checkIfInWishlist = (user) => {
+        onValue(ref(db, 'wishlist/' + `/${user.id}` + `/${fetched_album.id}`), snapshot => {
+            const data = snapshot.val();
+            if(data){
+                setWishlistStatus(true);
+            } 
+        })
+    };
 
     useEffect(() => {
         toast.configure();
         const loggedInUser = localStorage.getItem("user");
         if (loggedInUser) {
-            setLoginData(JSON.parse(loggedInUser));
-            console.log(loggedInUser);
+            var data = JSON.parse(loggedInUser);
+            setLoginData(data);
+            checkIfInCollection(data);
+            checkIfInWishlist(data)
         }
        }, []);
 
-    //should change temp to item after tables created
     const addToCollection = () => {
         const uuid = uid(); 
-        set(ref(db, 'collection/' + `/${loginData.id}` + `/${uuid}`), {
+        set(ref(db, 'collection/' + `/${loginData.id}` + `/${fetched_album.id}`), {
             id: fetched_album.id,
             album: fetched_album.album,
             artist: fetched_album.artist,
@@ -48,7 +70,7 @@ const AlbumInfo = () => {
 
     const addToWishlist = () => {
         const uuid = uid(); 
-        set(ref(db, 'wishlist/' + `/${loginData.id}` + `/${uuid}`), {
+        set(ref(db, 'wishlist/' + `/${loginData.id}` + `/${fetched_album.id}`), {
             id: fetched_album.id,
             album: fetched_album.album,
             artist: fetched_album.artist,

@@ -62,6 +62,7 @@ function Signup() {
         // save state of logged in user locally per session
         setLoginData(user_dict);
         localStorage.setItem('user', JSON.stringify(user_dict));
+        localStorage.setItem('userID', JSON.stringify(user_dict.id));
     };
     
     const handleFailure = (response) => {
