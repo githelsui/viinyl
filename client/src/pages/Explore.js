@@ -1,50 +1,19 @@
 import React from "react";
 import './Explore.css'
+import { Button } from '../components/Button';
 import ExploreDefaultComponent from '../components/ExploreComponents/ExploreDefaultComponent';
 import ExploreResultsComponent from '../components/ExploreComponents/ExploreResultsComponent';
 import { Grid } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import Vinyl from '../components/Vinyl';
-import axios from 'axios';
 import { useState, useEffect, useRef} from 'react';
-// import SearchIcon from '@material-ui/icons/Search'
 
 
 const Explore = () => {
-    const [recentReleases, setRecentReleases] = useState([{}])
-    const [searched, setSearched] = useState([false])
+    const [searched, setSearched] = useState([false]);
 
-    const fetchRecentReleases = async () => {
-        var Discogs = require('disconnect').Client;
-        var dis = new Discogs({userToken: process.env.REACT_APP_DISCOGS_TOKEN});
-        var db = dis.database();
-        var currentYear = new Date().getFullYear();
-        var top_releases = []
-        db.search({year: currentYear, country: 'US'}, function(err, data){
-            var recent_releases = data['results'].slice(0, 12)
-            for (var item in recent_releases) {
-                var release = recent_releases[item]
-                var str_chunks = release['title'].split(' - ')
-                var artistStr = str_chunks[0]
-                var albumStr = ''
-                for(var i = 1; i < str_chunks.length; i++){
-                    albumStr += str_chunks[i]
-                }
-                var release_dict = {
-                    id: release['id'],
-                    album: albumStr,
-                    artist: artistStr,
-                    image: release['cover_image'],
-                }
-                top_releases.push(release_dict)
-            }
-            setRecentReleases(top_releases)
-        });
+    const handleSearch = (input) => {
+
     };
-
-    useEffect(() => {
-        fetchRecentReleases();
-    }, []);
 
     return (
         <div className="explore-wrapper">
@@ -52,10 +21,11 @@ const Explore = () => {
             <div className="explore-title">explore</div>
             {/* searchbar section */}
                 <div className='large-searchbar'>
-                 <div className='dropdown'>
-                    <input className='large-search-input' type='text' class='form-control' placeholder='search for an album, artist, users...'/>
-                 </div>
-                 </div>
+                 {/* <div className='dropdown'> */}
+                    <input className='large-search-input' type='text' class='form-control' placeholder='search for an album, artist, users...' onChange={handleSearch}/>
+                    <div className="search-btn"><Button onClick={handleSearch} buttonStyle='btn--outline' buttonSize='btn--mobile'>&gt;</Button></div>
+                 {/* </div> */}
+                </div>
                 <div className="stats">
                         <div className="subtitle">most recent releases</div>
                 </div>

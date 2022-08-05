@@ -24,14 +24,11 @@
 
 /* searchbar for explore page */
 .large-searchbar {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
+    display: inline-block;
+    width: 30%;
     margin-top: 15px;
     padding-bottom: 30px;
-    margin-left:-150px;
+    margin-left:15%;
 }
 
 .large-search-input {
@@ -53,4 +50,9 @@
         width: 40%;
         margin-left:0px;
     }
+}
+
+.search-btn {
+   margin-top: -43px;
+   margin-left: 230%;
 }
