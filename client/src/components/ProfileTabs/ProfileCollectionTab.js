@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import './ProfileTabs.css'
-import Vinyls from '../Vinyls';
 import { Grid } from '@material-ui/core';
 import Vinyl from '../Vinyl';
 import { db } from '../../util/firebase';
