@@ -10,10 +10,10 @@ import usePromise from "react-promise";
 
 
 const Explore = () => {
-
     const [recentReleases, setRecentReleases] = useState([{}])
+    const [searched, setSearched] = useState([])
 
-    const fetchDiscogDB = async () => {
+    const fetchRecentReleases = async () => {
         var Discogs = require('disconnect').Client;
         var dis = new Discogs({userToken: process.env.REACT_APP_DISCOGS_TOKEN});
         var db = dis.database();
@@ -42,7 +42,7 @@ const Explore = () => {
     };
 
     useEffect(() => {
-        fetchDiscogDB();
+        fetchRecentReleases();
        }, []);
 
     return (
