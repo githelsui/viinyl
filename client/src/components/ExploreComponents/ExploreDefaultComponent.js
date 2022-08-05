@@ -1,18 +1,11 @@
 import React from "react";
-import './Explore.css'
-import ExploreDefaultComponent from '../components/ExploreComponents/ExploreDefaultComponent';
-import ExploreResultsComponent from '../components/ExploreComponents/ExploreResultsComponent';
+import './ExploreDefault.css'
 import { Grid } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import Vinyl from '../components/Vinyl';
-import axios from 'axios';
+import Vinyl from '../Vinyl';
 import { useState, useEffect, useRef} from 'react';
-// import SearchIcon from '@material-ui/icons/Search'
 
-
-const Explore = () => {
+const ExploreDefaultComponent = () => {
     const [recentReleases, setRecentReleases] = useState([{}])
-    const [searched, setSearched] = useState([false])
 
     const fetchRecentReleases = async () => {
         var Discogs = require('disconnect').Client;
@@ -47,22 +40,16 @@ const Explore = () => {
     }, []);
 
     return (
-        <div className="explore-wrapper">
-            <div className="explore">
-            <div className="explore-title">explore</div>
-            {/* searchbar section */}
-                <div className='large-searchbar'>
-                 <div className='dropdown'>
-                    <input className='large-search-input' type='text' class='form-control' placeholder='search for an album, artist, users...'/>
-                 </div>
-                 </div>
-                <div className="stats">
-                        <div className="subtitle">most recent releases</div>
-                </div>
-            </div>
-            { searched ? <ExploreDefaultComponent/> : <ExploreResultsComponent/> }
-        </div>
-    )
-}
+    <div className='vinyl-grid'>
+        <Grid container justify='center' spacing={10}>
+        {recentReleases.map(function(vinyl, i){
+            return <Grid item key={i}>
+            <Vinyl item={vinyl}/>
+        </Grid>
+        })}
+        </Grid>
+    </div>
+    );
+};
 
-export default Explore;
+export default ExploreDefaultComponent;
