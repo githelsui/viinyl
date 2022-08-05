@@ -37,8 +37,6 @@ ul.nav {
     /* border-top-left-radius: 50px; */
   }
   ul.nav li:nth-child(2) {
-    /* border-top-right-radius: 50px; */
-    border-left: 0.5px solid #141414;
   }
   ul.nav li:hover {
     background: #f3f1f1;

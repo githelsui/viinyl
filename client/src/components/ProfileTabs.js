@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './Tabs.css'
-import ProfileCollectionTab from './AllTabs/ProfileCollectionTab';
-import ProfileWishlistTab from './AllTabs/ProfileWishlistTab';
+import ProfileCollectionTab from './ProfileTabs/ProfileCollectionTab';
+import ProfileWishlistTab from './ProfileTabs/ProfileWishlistTab';
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState("CollectionTab");
