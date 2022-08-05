@@ -40,14 +40,19 @@ const ExploreDefaultComponent = () => {
     }, []);
 
     return (
-    <div className='vinyl-grid'>
-        <Grid container justify='center' spacing={10}>
-        {recentReleases.map(function(vinyl, i){
-            return <Grid item key={i}>
-            <Vinyl item={vinyl}/>
-        </Grid>
-        })}
-        </Grid>
+    <div>
+        <div className="stats">
+            <div className="subtitle">most recent releases</div>
+        </div>
+        <div className='vinyl-grid'>
+            <Grid container justify='center' spacing={10}>
+            {recentReleases.map(function(vinyl, i){
+                return <Grid item key={i}>
+                <Vinyl item={vinyl}/>
+            </Grid>
+            })}
+            </Grid>
+        </div>
     </div>
     );
 };

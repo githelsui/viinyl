@@ -9,16 +9,22 @@ import { useState, useEffect, useRef} from 'react';
 
 
 const Explore = () => {
-    const [searched, setSearched] = useState([false]);
+    const [searched, setSearched] = useState(false);
+    const [query, setQuery] = useState('');
 
     const handleSearch = (input) => {
-
+        setSearched(true)
+        console.log('query')
     };
+
+    const setDiscoveryComponent = () => {
+        setSearched(false)
+    }
 
     return (
         <div className="explore-wrapper">
             <div className="explore">
-            <div className="explore-title">explore</div>
+            <div className="explore-title" onClick={setDiscoveryComponent}>explore</div>
             {/* searchbar section */}
                 <div className='large-searchbar'>
                  {/* <div className='dropdown'> */}
@@ -26,11 +32,8 @@ const Explore = () => {
                     <div className="search-btn"><Button onClick={handleSearch} buttonStyle='btn--outline' buttonSize='btn--mobile'>&gt;</Button></div>
                  {/* </div> */}
                 </div>
-                <div className="stats">
-                        <div className="subtitle">most recent releases</div>
-                </div>
             </div>
-            { searched ? <ExploreDefaultComponent/> : <ExploreResultsComponent/> }
+            { searched ? <ExploreResultsComponent/> : <ExploreDefaultComponent/> }
         </div>
     )
 }
