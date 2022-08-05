@@ -8,3 +8,7 @@
   font-family: 'Roboto Mono';
   cursor: crosshair;
 }
+
+a {
+  color: #000;
+}
