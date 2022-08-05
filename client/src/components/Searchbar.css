@@ -29,7 +29,7 @@ input:focus {
         display: none;
     }
 
-    input {
+    .nav-search-input  {
         display: none;
     }
 }

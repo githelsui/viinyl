@@ -8,9 +8,6 @@ import axios from 'axios';
 import { useState, useEffect, useRef} from 'react';
 import usePromise from "react-promise";
 
-/*
- Table display for array for Explore releases
-*/
 
 const Explore = () => {
 
@@ -49,9 +46,14 @@ const Explore = () => {
        }, []);
 
     return (
-        <div className="profile-wrapper">
-            <div className="profile">
+        <div className="explore-wrapper">
+            <div className="explore">
                 <div className="explore-title">explore</div>
+                <div className='large-searchbar'>
+                 <div className='dropdown'>
+                    <input className='large-search-input' type='text' class='form-control' placeholder='search for an album, artist, users...'/>
+                 </div>
+                 </div>
                 <div className="stats">
                         <div className="subtitle">most recent releases</div>
                 </div>
