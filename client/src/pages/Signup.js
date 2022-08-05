@@ -59,10 +59,11 @@ function Signup() {
                 friend_count: user_dict.friend_count,
             });
         }
-        // save state of logged in user locally per session
+        // save state of logged in user locally per session after successful login
         setLoginData(user_dict);
         localStorage.setItem('user', JSON.stringify(user_dict));
         localStorage.setItem('userID', JSON.stringify(user_dict.id));
+        window.location.reload(false);
     };
     
     const handleFailure = (response) => {

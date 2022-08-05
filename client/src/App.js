@@ -27,7 +27,7 @@ function App() {
         <LoggedInNavbar/>
           <Routes>
           <Route path='/explore' element={<Explore/>}/>
-            <Route path='/profile' element={<Profile/>}/>
+            <Route path='/profile' element={<Profile account={isUserSignedIn}/>}/>
             <Route path='/signup' element={<Signup/>}/>
             <Route path='/album' element={<AlbumInfo/>}/>
           </Routes>

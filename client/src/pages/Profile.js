@@ -1,4 +1,4 @@
-import React, { useState }  from "react";
+import React, { useState, useEffect }  from "react";
 import './Profile.css'
 import '../components/Tabs.css'
 import ProfileCollectionTab from '../components/ProfileTabs/ProfileCollectionTab';
@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 
 const Profile = ({account}) => {
   const [activeTab, setActiveTab] = useState("CollectionTab");
+  const [loginData, setLoginData] = useState(''); 
 
   //  Functions to handle Tab Switching
   const setCollectionTab = () => {
@@ -23,24 +24,32 @@ const Profile = ({account}) => {
     setActiveTab("FriendsTab");
   };
 
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+        setLoginData(JSON.parse(loggedInUser));
+        console.log(loginData.fullName)
+    }
+    console.log(loginData)
+   }, []);
+
     return (
         <div className="profile-wrapper">
             <div className="profile">
-                <div className="username">githel</div>
+                {loginData ? <div className="username">{loginData.fullName}</div> : <div className="username">Username</div>}
                 <div className="stats">
                     <a onClick={setCollectionTab}>
-                        <div className="records">20 in collection</div>
+                        <div className="records">{loginData.collection_count} in collection</div>
                      </a>
                     <a onClick={setWishlistTab}>
-                         <div className="wishes">0 in wishlist</div>
+                         <div className="wishes">{loginData.wishlist_count} in wishlist</div>
                     </a>
                     <a onClick={setFriendsTab}>
-                         <div className="friends">3 friends</div>
+                         <div className="friends">{loginData.friend_count} friends</div>
                      </a>
                 </div>
             </div>
-            {/* Tabs */}
-            <div className="Tabs">
+     <div className="Tabs">
       <ul className="nav">
                 <li className={activeTab === "CollectionTab" ? "active" : ""} onClick={setCollectionTab}>Collection</li>
                 <li className={activeTab === "WishlistTab" ? "active" : ""}  onClick={setWishlistTab}>Wishlist</li>
