@@ -10,22 +10,22 @@ import { useState, useEffect, useRef} from 'react';
 
 const Explore = () => {
     const [searched, setSearched] = useState(false);
-    // const [inputQuery, setInputQuery] = useState('');
+    const [inputQuery, setInputQuery] = useState('');
     const [query, setQuery] = useState('');
 
     const handleSearch = e => {
         const queryVal = e.target.value;
         if(queryVal != '') {
-            // setInputQuery(queryVal)
-            setQuery(queryVal);
+            setInputQuery(queryVal)
+            // setQuery(queryVal);
         }
         //TODO: Create dopdown featuring only top 10 albums on query
     };
 
     const enterSearch = () => {
-        if(query.length != 0) {
+        if(inputQuery.length != 0) {
             setSearched(true);
-            // setQuery(inputQuery);
+            setQuery(inputQuery);
         }
     }
 
