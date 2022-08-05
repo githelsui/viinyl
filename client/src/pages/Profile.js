@@ -41,7 +41,9 @@ const Profile = ({account}) => {
                 <li className={activeTab === "WishlistTab" ? "active" : ""}  onClick={setWishlistTab}>Wishlist</li>
         </ul>
             <div className="outlet">
-                {activeTab === "CollectionTab" ? <ProfileCollectionTab /> : <ProfileWishlistTab />}
+                {activeTab === "CollectionTab" ? <ProfileCollectionTab /> : null}
+                {activeTab === "WishlistTab" ? <ProfileWishlistTab /> : null}
+                {activeTab === "FriendsTab" ? null : null }
             </div>
             </div>
         </div>
