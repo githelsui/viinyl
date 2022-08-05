@@ -4,8 +4,8 @@ import Vinyls from '../Vinyls';
 
 const ProfileFriendsTab = () => {
   return (
-    <div className="title">
-      Friends
+    <div className="ProfileFriendsTab">
+      <p>Friends</p>
     </div>
   );
 };

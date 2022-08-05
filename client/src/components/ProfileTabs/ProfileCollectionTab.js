@@ -8,6 +8,7 @@ import {ref, set, onValue, remove } from "firebase/database";
 
 const ProfileCollectionTab = () => {
   const [loginData, setLoginData] = useState(); 
+  const [emptyStatus, setCollectionStatus] = useState(true); 
   const [collectionList, setCollectionList] = useState([]); 
 
   const fetchCollection = (user) => {
@@ -22,6 +23,11 @@ const ProfileCollectionTab = () => {
           }
       } 
       setCollectionList(collection);
+      if(collection.length == 0) {
+        setCollectionStatus(true)
+      } else {
+        setCollectionStatus(false)
+      }
   });
   }
 
@@ -37,15 +43,17 @@ const ProfileCollectionTab = () => {
 
   return (
     <div className="ProfileCollectionTab">
-      <div className='vinyl-grid'>
-            <Grid container justify='center' spacing={10}>
-            {collectionList.map(function(vinyl, i){
-                return <Grid item key={i}>
-                <Vinyl item={vinyl}/>
-            </Grid>
-            })}
-            </Grid>
-        </div>
+      {emptyStatus ?  <p>0 albums in collection</p> :
+         <div className='vinyl-grid'>
+         <Grid container justify='center' spacing={10}>
+         {collectionList.map(function(vinyl, i){
+             return <Grid item key={i}>
+             <Vinyl item={vinyl}/>
+         </Grid>
+         })}
+         </Grid>
+     </div>
+      }
     </div>
   );
 };

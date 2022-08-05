@@ -4,7 +4,7 @@ import './ProfileTabs.css'
 const ProfileWishlistTab = () => {
   return (
     <div className="ProfileWishlistTab">
-      <p>Second Tab!! Hurray!!</p>
+      <p>0 albums in wishlist</p>
       {/* Second  tab content will go here */}
     </div>
   );

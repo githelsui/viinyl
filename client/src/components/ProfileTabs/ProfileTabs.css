@@ -1,5 +1,6 @@
 .ProfileCollectionTab p,
-.ProfileWishlistTab p {
-  font-size: 2rem;
+.ProfileWishlistTab p,
+.ProfileFriendsTab p {
+  font-size: 1rem;
   text-align: center;
 }
