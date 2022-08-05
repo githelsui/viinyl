@@ -17,7 +17,6 @@ const Explore = () => {
         const queryVal = e.target.value;
         if(queryVal != '') {
             setInputQuery(queryVal)
-            // setQuery(queryVal);
         }
         //TODO: Create dopdown featuring only top 10 albums on query
     };
@@ -26,6 +25,7 @@ const Explore = () => {
         if(inputQuery.length != 0) {
             setSearched(true);
             setQuery(inputQuery);
+            console.log(inputQuery)
         }
     }
 
@@ -45,7 +45,7 @@ const Explore = () => {
                  {/* </div> */}
                 </div>
             </div>
-            { searched ? <ExploreResultsComponent query={query}/> : <ExploreDefaultComponent/> }
+            { searched ? <ExploreResultsComponent query={inputQuery}/> : <ExploreDefaultComponent/> }
         </div>
     )
 }

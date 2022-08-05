@@ -18,7 +18,6 @@ const Tabs = () => {
 
   return (
     <div className="Tabs">
-      {/* Tab nav */}
       <ul className="nav">
         <li className={activeTab === "ReleasesTab" ? "active" : ""} onClick={handleTab1}>Albums</li>
         <li className={activeTab === "UsersTab" ? "active" : ""}  onClick={handleTab2}>Users</li>

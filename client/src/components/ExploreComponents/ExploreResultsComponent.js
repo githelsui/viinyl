@@ -2,13 +2,26 @@ import React from "react";
 import './ExploreResults.css'
 import { Grid } from '@material-ui/core';
 import Vinyl from '../Vinyl';
+import '../Tabs.css'
+import SearchedResultsTab from './SearchedResultsTab';
+import UsersResultsTab from './UsersResultsTab';
 import { useState, useEffect, useRef} from 'react';
 
 const ExploreResultsComponent = ({query}) => {
     const [discogsResults, setDiscogsResults] = useState([{}])
+    const [activeTab, setActiveTab] = useState("ReleasesTab");
+
+    //  Functions to handle Tab Switching
+  const handleTab1 = () => {
+    // update the state to Collections Tab
+    setActiveTab("ReleasesTab");
+  };
+  const handleTab2 = () => {
+    // update the state to Wishlist Tab
+    setActiveTab("UsersTab");
+  };
     
     const fetchQueryResults = async () => {
-        console.log(query)
         var Discogs = require('disconnect').Client;
         var dis = new Discogs({userToken: process.env.REACT_APP_DISCOGS_TOKEN});
         var db = dis.database();
@@ -42,14 +55,14 @@ const ExploreResultsComponent = ({query}) => {
 
     return (
         <div>
-        <div className="results-header ">
+        {/* <div className="results-header ">
             <div className="subtitle">results for 
                 <div className="italicize">
                  {query}
                 </div>
             </div>
-        </div>
-        <div className='vinyl-grid'>
+        </div> */}
+        {/* <div className='vinyl-grid'>
             <Grid container justify='center' spacing={10}>
             {discogsResults.map(function(vinyl, i){
                 return <Grid item key={i}>
@@ -57,7 +70,16 @@ const ExploreResultsComponent = ({query}) => {
             </Grid>
             })}
             </Grid>
+        </div> */}
+        <div className="Tabs">
+             <ul className="nav">
+            <li className={activeTab === "ReleasesTab" ? "active" : ""} onClick={handleTab1}>Albums</li>
+            <li className={activeTab === "UsersTab" ? "active" : ""}  onClick={handleTab2}>Users</li>
+         </ul>
+        <div className="outlet">
+            {activeTab === "ReleasesTab" ? <SearchedResultsTab /> : <UsersResultsTab />}
         </div>
+    </div>
     </div>
     );
 };
