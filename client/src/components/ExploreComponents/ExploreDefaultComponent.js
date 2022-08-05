@@ -41,7 +41,7 @@ const ExploreDefaultComponent = () => {
 
     return (
     <div>
-        <div className="stats">
+        <div className="recent-release-header ">
             <div className="subtitle">most recent releases</div>
         </div>
         <div className='vinyl-grid'>

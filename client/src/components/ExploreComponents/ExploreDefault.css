@@ -1,0 +1,11 @@
+.recent-release-header {
+    text-align: center;
+    width: 100%;
+    display: table;
+}
+
+.subtitle{
+    color: #000;
+    padding: 3px;
+    align-items: flex-start;
+}

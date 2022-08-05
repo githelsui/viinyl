@@ -12,10 +12,19 @@ const Explore = () => {
     const [searched, setSearched] = useState(false);
     const [query, setQuery] = useState('');
 
-    const handleSearch = (input) => {
-        setSearched(true)
-        console.log('query')
+    const handleSearch = e => {
+        const queryVal = e.target.value;
+        if(queryVal != '') {
+            setQuery(queryVal)
+        }
+        //TODO: Create dopdown featuring only top 10 albums on query
     };
+
+    const enterSearch = () => {
+        if(query.length != 0) {
+            setSearched(true)
+        }
+    }
 
     const setDiscoveryComponent = () => {
         setSearched(false)
@@ -28,12 +37,12 @@ const Explore = () => {
             {/* searchbar section */}
                 <div className='large-searchbar'>
                  {/* <div className='dropdown'> */}
-                    <input className='large-search-input' type='text' class='form-control' placeholder='search for an album, artist, users...' onChange={handleSearch}/>
-                    <div className="search-btn"><Button onClick={handleSearch} buttonStyle='btn--outline' buttonSize='btn--mobile'>&gt;</Button></div>
+                    <input className='large-search-input' type='text' placeholder='search for albums, users, etc.' onChange={handleSearch}/>
+                    <div className="search-btn"><Button onClick={enterSearch} buttonStyle='btn--outline' buttonSize='btn--mobile'>&gt;</Button></div>
                  {/* </div> */}
                 </div>
             </div>
-            { searched ? <ExploreResultsComponent/> : <ExploreDefaultComponent/> }
+            { searched ? <ExploreResultsComponent query={query}/> : <ExploreDefaultComponent/> }
         </div>
     )
 }

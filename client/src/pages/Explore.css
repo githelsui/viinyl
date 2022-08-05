@@ -16,12 +16,6 @@
     padding-bottom: 20px;
 }
 
-.subtitle{
-    color: #000;
-    padding: 3px;
-    align-items: flex-start;
-}
-
 /* searchbar for explore page */
 .large-searchbar {
     display: inline-block;
