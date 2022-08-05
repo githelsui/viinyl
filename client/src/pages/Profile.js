@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useState }  from "react";
 import './Profile.css'
-import Vinyls from '../components/Vinyls';
+import '../components/Tabs.css'
+import ProfileCollectionTab from '../components/AllTabs/ProfileCollectionTab';
+import ProfileWishlistTab from '../components/AllTabs/ProfileWishlistTab';
 import { Link } from 'react-router-dom'
 
 const Profile = ({account}) => {
+  const [activeTab, setActiveTab] = useState("CollectionTab");
+
+  //  Functions to handle Tab Switching
+  const setCollectionTab = () => {
+    // update the state to Collections Tab
+    setActiveTab("CollectionTab");
+  };
+  const setWishlistTab = () => {
+    // update the state to Wishlist Tab
+    setActiveTab("WishlistTab");
+  };
+
     return (
         <div className="profile-wrapper">
             <div className="profile">
@@ -20,7 +34,16 @@ const Profile = ({account}) => {
                         </Link>
                 </div>
             </div>
-            <Vinyls/>
+            {/* Tabs */}
+            <div className="Tabs">
+      <ul className="nav">
+                <li className={activeTab === "CollectionTab" ? "active" : ""} onClick={setCollectionTab}>Collection</li>
+                <li className={activeTab === "WishlistTab" ? "active" : ""}  onClick={setWishlistTab}>Wishlist</li>
+        </ul>
+            <div className="outlet">
+                {activeTab === "CollectionTab" ? <ProfileCollectionTab /> : <ProfileWishlistTab />}
+            </div>
+            </div>
         </div>
     )
 }
