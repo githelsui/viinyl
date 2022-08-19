@@ -55,13 +55,13 @@ const ExploreResultsComponent = ({query}) => {
 
     return (
         <div>
-        {/* <div className="results-header ">
+        <div className="results-header ">
             <div className="subtitle">results for 
                 <div className="italicize">
                  {query}
                 </div>
             </div>
-        </div> */}
+        </div>
         {/* <div className='vinyl-grid'>
             <Grid container justify='center' spacing={10}>
             {discogsResults.map(function(vinyl, i){
@@ -77,7 +77,7 @@ const ExploreResultsComponent = ({query}) => {
             <li className={activeTab === "UsersTab" ? "active" : ""}  onClick={handleTab2}>Users</li>
          </ul>
         <div className="outlet">
-            {activeTab === "ReleasesTab" ? <SearchedResultsTab /> : <UsersResultsTab />}
+            {activeTab === "ReleasesTab" ? <SearchedResultsTab query={query}/> : <UsersResultsTab query={query}/>}
         </div>
     </div>
     </div>

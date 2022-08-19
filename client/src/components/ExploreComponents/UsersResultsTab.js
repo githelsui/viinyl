@@ -4,7 +4,7 @@ import { Grid } from '@material-ui/core';
 import Vinyl from '../Vinyl';
 import { useState, useEffect, useRef} from 'react';
 
-const UsersResultsTab = () => {
+const UsersResultsTab = ({query}) =>  {
     //useEffect
     //keep fetching results from firebase db
     return (
