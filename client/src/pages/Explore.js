@@ -29,6 +29,7 @@ const Explore = () => {
 
     const handleSearch = e => {
         const queryVal = e.target.value;
+        //TODO: temporary solution for multiple searches
         setSearched(false)
         if(queryVal != '') {
             setInputQuery(queryVal)
