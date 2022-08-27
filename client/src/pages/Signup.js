@@ -9,12 +9,13 @@ import {onValue, ref, set } from "firebase/database";
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import NewUserComponent from '../components/NewUserComponent';
 
 function Signup() {
     // stores user only within this page
     const [loginData, setLoginData] = useState(); 
     const [userExists, setUserExists] = useState();
-    const [userNameComp, showUserNameComp] = useState(false);
+    const [newUserComponent, showNewUserComponent] = useState(false);
 
     // check if user is signed in locally
     useEffect(() => {
@@ -45,7 +46,7 @@ function Signup() {
         console.log("does this run")
         const user = response.profileObj;
         const uuid = response.googleId;
-        //store new user in users firebase db if it doesnt already exist in db
+        //store new user in local storage db if it doesnt already exist in db
         checkIfUserExists(uuid); 
         const user_dict = {
             id: uuid,
@@ -55,16 +56,20 @@ function Signup() {
             wishlist_count: 0,
             friend_count: 0,
         }
+        
+        // redirect to NewUserComponent to create a new username -> save new user in firebase
         if(!userExists){
-            set(ref(db, 'user/' + `/${uuid}`), {
-                id: user_dict.id,
-                email: user_dict.email,
-                fullName: user_dict.fullName,
-                collection_count: user_dict.collection_count,
-                wishlist_count: user_dict.wishlist_count,
-                friend_count: user_dict.friend_count,
-            });
-            showUserNameComp(true);
+            // save new user to users table
+                set(ref(db, 'user/' + `/${uuid}`), {
+                    id: user_dict.id,
+                    email: user_dict.email,
+                    username: '',
+                    fullName: user_dict.fullName,
+                    collection_count: user_dict.collection_count,
+                    wishlist_count: user_dict.wishlist_count,
+                    friend_count: user_dict.friend_count,
+                });
+            showNewUserComponent(true);
         }
         // save state of logged in user locally per session after successful login
         setLoginData(user_dict);
@@ -100,19 +105,27 @@ function Signup() {
                     <button onClick={handleLogout}>Logout</button>
                 </div>
             ) : (
-                <div>
-                    <div className='signup-info'>&gt; share your collection</div> 
-                    <div className='signup-info'>&gt; explore new records</div> 
-                    <div className='signup-info'>&gt; add to your wishlist</div> 
-                    <div className='signup-info'>&gt; connect with friends</div> 
-                    <div className='signup-btn'><GoogleLogin 
-                        clientId={process.env.REACT_APP_APP_ID}
-                        buttonText="Log in with Google"
-                        onSuccess={handleLogin}
-                        onFailure={handleFailure}
-                        cookiePolicy={'single_host_origin'}
-                    /></div>
-                </div>
+              <div>
+                  {
+                    newUserComponent ? (
+                        <NewUserComponent/>
+                    ) : (
+                        <div>
+                        <div className='signup-info'>&gt; share your collection</div> 
+                        <div className='signup-info'>&gt; explore new records</div> 
+                        <div className='signup-info'>&gt; add to your wishlist</div> 
+                        <div className='signup-info'>&gt; connect with friends</div> 
+                        <div className='signup-btn'><GoogleLogin 
+                            clientId={process.env.REACT_APP_APP_ID}
+                            buttonText="Log in with Google"
+                            onSuccess={handleLogin}
+                            onFailure={handleFailure}
+                            cookiePolicy={'single_host_origin'}
+                        /></div>
+                    </div>
+                    )
+                }
+              </div>
             )
         }
     </div>
