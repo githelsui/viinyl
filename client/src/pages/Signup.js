@@ -14,6 +14,7 @@ function Signup() {
     // stores user only within this page
     const [loginData, setLoginData] = useState(); 
     const [userExists, setUserExists] = useState();
+    const [userNameComp, showUserNameComp] = useState(false);
 
     // check if user is signed in locally
     useEffect(() => {
@@ -33,7 +34,12 @@ function Signup() {
         })
     };
 
+    const createNewUserName = () => {
+
+    };
+
     // login via google + store in db
+    //TODO: create new unique username for new users as unique id
     const handleLogin = async (response) => {
         //login with google
         console.log("does this run")
@@ -58,6 +64,7 @@ function Signup() {
                 wishlist_count: user_dict.wishlist_count,
                 friend_count: user_dict.friend_count,
             });
+            showUserNameComp(true);
         }
         // save state of logged in user locally per session after successful login
         setLoginData(user_dict);
