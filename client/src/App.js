@@ -7,6 +7,7 @@ import { BrowserRouter, BrowserRouter as Router, Switch, Route, Routes } from 'r
 import Profile from './pages/Profile';
 import Signup from './pages/Signup';
 import Explore from './pages/Explore';
+import Feed from './pages/Feed';
 import AlbumInfo from './pages/AlbumInfo';
 
 function App() {
@@ -26,7 +27,8 @@ function App() {
       <Router>
         <LoggedInNavbar/>
           <Routes>
-          <Route path='/explore' element={<Explore/>}/>
+          <Route path='/' element={<Feed/>}/>
+            <Route path='/explore' element={<Explore/>}/>
             <Route path='/profile' element={<Profile account={isUserSignedIn}/>}/>
             <Route path='/signup' element={<Signup/>}/>
             <Route path='/album' element={<AlbumInfo/>}/>

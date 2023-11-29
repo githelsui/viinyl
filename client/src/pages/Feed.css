@@ -1,0 +1,52 @@
+.feed {
+    width: 90%;
+    padding-top: 50px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.feed-title {
+    font-size: 2rem;
+    width: 100%;
+    text-align: center;
+    display: table;
+    padding-bottom: 20px;
+}
+
+/* searchbar for feed page */
+.large-searchbar {
+    display: inline-block;
+    width: 30%;
+    margin-top: 15px;
+    padding-bottom: 30px;
+    margin-left:15%;
+}
+
+.large-search-input {
+    padding: 10px;
+    font-size: 1rem;
+    border:1px solid #fff;
+    border-bottom-color: #000;
+    pointer-events:painted;
+    box-shadow: none;
+}
+
+.large-search-input:focus {
+    outline: none !important;
+    box-shadow: 0 0 10px #fff; 
+}
+
+@media screen and (max-width: 960px) {
+    .large-searchbar {
+        width: 40%;
+        margin-left:0px;
+    }
+}
+
+.search-btn {
+   margin-top: -42.5px;
+   margin-left: 220%;
+}
