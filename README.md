@@ -1,2 +1,2 @@
 # viinyl
-<img src="https://github.com/githelsui/viinyl/blob/main/client/demo.png" width=600>
+<img src="https://github.com/githelsui/viinyl/blob/main/client/demo.png" width=1000>
